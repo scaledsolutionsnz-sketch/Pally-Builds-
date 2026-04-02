@@ -47,14 +47,16 @@
     nav.scrolled { box-shadow: 0 4px 24px rgba(0,0,0,.4); }
 
     .nav-logo {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 900;
-      font-size: 1.6rem;
-      color: var(--white);
-      letter-spacing: .04em;
+      display: flex;
+      align-items: center;
       text-decoration: none;
+      line-height: 0;
     }
-    .nav-logo span { color: var(--orange); }
+    .nav-logo svg {
+      height: 48px;
+      width: 48px;
+      border-radius: 5px;
+    }
 
     .nav-links {
       display: flex; gap: 2rem; list-style: none;
@@ -130,20 +132,16 @@
       opacity: 0;
       animation: fadeUp .7s .2s forwards;
     }
-    .hero-title {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 900;
-      font-size: clamp(3.5rem, 9vw, 7.5rem);
-      line-height: .92;
-      color: var(--white);
-      text-transform: uppercase;
-      max-width: 800px;
+    .hero-logo-wrap {
       opacity: 0;
       animation: fadeUp .7s .4s forwards;
+      margin-bottom: 2rem;
     }
-    .hero-title em {
-      font-style: normal;
-      color: var(--orange);
+    .hero-logo-wrap svg {
+      height: clamp(100px, 18vw, 190px);
+      width: clamp(100px, 18vw, 190px);
+      border-radius: 10px;
+      display: block;
     }
     .hero-tagline {
       font-family: 'Lora', serif;
@@ -557,13 +555,14 @@
       margin-bottom: 2rem;
     }
     .footer-logo {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 900;
-      font-size: 1.8rem;
-      color: var(--white);
-      letter-spacing: .05em;
+      display: block;
+      line-height: 0;
     }
-    .footer-logo span { color: var(--orange); }
+    .footer-logo svg {
+      height: 72px;
+      width: 72px;
+      border-radius: 6px;
+    }
     .footer-tagline { font-size: .85rem; color: var(--stone); margin-top: .2rem; }
 
     .footer-links {
@@ -650,9 +649,34 @@
 </head>
 <body>
 
+  <!-- ── LOGO SYMBOL (reused throughout page) ── -->
+  <svg style="display:none" aria-hidden="true">
+    <symbol id="pb-logo" viewBox="0 0 500 500">
+      <rect width="500" height="500" fill="#000000"/>
+      <!-- Large P -->
+      <text x="68" y="348"
+        font-family="'Barlow Condensed','Arial Narrow',Arial,sans-serif"
+        font-weight="900" font-size="238" fill="#ffffff">P</text>
+      <!-- Large B -->
+      <text x="244" y="338"
+        font-family="'Barlow Condensed','Arial Narrow',Arial,sans-serif"
+        font-weight="900" font-size="212" fill="#ffffff">B</text>
+      <!-- PALLY label -->
+      <text x="262" y="174"
+        font-family="'Barlow Condensed','Arial Narrow',Arial,sans-serif"
+        font-weight="700" font-size="48" letter-spacing="9" fill="#ffffff">PALLY</text>
+      <!-- BUILDS label -->
+      <text x="262" y="368"
+        font-family="'Barlow Condensed','Arial Narrow',Arial,sans-serif"
+        font-weight="700" font-size="48" letter-spacing="3" fill="#ffffff">BUILDS</text>
+    </symbol>
+  </svg>
+
   <!-- ── NAV ── -->
   <nav id="navbar">
-    <a href="#hero" class="nav-logo">Pally<span>Builds</span></a>
+    <a href="#hero" class="nav-logo" aria-label="Pally Builds — Home">
+      <svg aria-hidden="true"><use href="#pb-logo"></use></svg>
+    </a>
     <ul class="nav-links" id="navLinks">
       <li><a href="#about">About</a></li>
       <li><a href="#services">Services</a></li>
@@ -669,7 +693,9 @@
   <!-- ── HERO ── -->
   <section id="hero">
     <p class="hero-eyebrow">Masterton · Wairarapa · New Zealand</p>
-    <h1 class="hero-title">Pally<br><em>Builds</em></h1>
+    <div class="hero-logo-wrap">
+      <svg role="img" aria-label="Pally Builds"><use href="#pb-logo"></use></svg>
+    </div>
     <p class="hero-tagline">Quality Builds in the Heart of the Wairarapa — built right, built to last.</p>
     <div class="hero-actions">
       <a href="#contact" class="btn-primary">Get a Free Quote</a>
@@ -929,7 +955,9 @@
   <footer>
     <div class="footer-inner">
       <div>
-        <div class="footer-logo">Pally<span>Builds</span></div>
+        <div class="footer-logo">
+          <svg role="img" aria-label="Pally Builds"><use href="#pb-logo"></use></svg>
+        </div>
         <div class="footer-tagline">Quality Builds in the Heart of the Wairarapa</div>
       </div>
       <ul class="footer-links">
