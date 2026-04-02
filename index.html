@@ -47,15 +47,18 @@
     nav.scrolled { box-shadow: 0 4px 24px rgba(0,0,0,.4); }
 
     .nav-logo {
-      display: flex;
-      align-items: center;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 1.45rem;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      color: var(--white);
       text-decoration: none;
-      line-height: 0;
+      line-height: 1;
     }
-    .nav-logo svg {
-      height: 48px;
-      width: 48px;
-      border-radius: 5px;
+    .nav-logo em {
+      font-style: normal;
+      color: var(--orange);
     }
 
     .nav-links {
@@ -84,18 +87,21 @@
     .nav-cta {
       font-family: 'Barlow Condensed', sans-serif;
       font-weight: 700;
-      font-size: .95rem;
-      letter-spacing: .1em;
+      font-size: .9rem;
+      letter-spacing: .12em;
       text-transform: uppercase;
       background: var(--orange);
       color: var(--white);
       border: none;
-      padding: .55rem 1.4rem;
+      padding: .55rem 1.5rem;
       cursor: pointer;
       text-decoration: none;
-      transition: background .2s, transform .15s;
+      transition: background .25s ease, box-shadow .25s ease;
     }
-    .nav-cta:hover { background: var(--orange-lt); transform: translateY(-1px); }
+    .nav-cta:hover {
+      background: var(--orange-lt);
+      box-shadow: 0 4px 16px rgba(232,98,26,.35);
+    }
 
     /* Hamburger */
     .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
@@ -130,17 +136,22 @@
       color: var(--orange);
       margin-bottom: 1rem;
       opacity: 0;
-      animation: fadeUp .7s .2s forwards;
+      animation: fadeUp .8s .1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
-    .hero-logo-wrap {
+    .hero-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: clamp(5rem, 11vw, 9rem);
+      line-height: .88;
+      color: var(--white);
+      text-transform: uppercase;
+      letter-spacing: -.01em;
       opacity: 0;
-      animation: fadeUp .7s .4s forwards;
-      margin-bottom: 2rem;
+      animation: fadeUp .8s .3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
-    .hero-logo-wrap svg {
-      height: clamp(100px, 18vw, 190px);
-      width: clamp(100px, 18vw, 190px);
-      border-radius: 10px;
+    .hero-title em {
+      font-style: normal;
+      color: var(--orange);
       display: block;
     }
     .hero-tagline {
@@ -151,52 +162,55 @@
       max-width: 520px;
       line-height: 1.5;
       opacity: 0;
-      animation: fadeUp .7s .6s forwards;
+      animation: fadeUp .8s .5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
     .hero-actions {
       display: flex; gap: 1rem; flex-wrap: wrap;
       margin-top: 2.5rem;
       opacity: 0;
-      animation: fadeUp .7s .8s forwards;
+      animation: fadeUp .8s .65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
     .btn-primary {
       font-family: 'Barlow Condensed', sans-serif;
       font-weight: 700;
-      font-size: 1.05rem;
-      letter-spacing: .1em;
+      font-size: 1rem;
+      letter-spacing: .12em;
       text-transform: uppercase;
       background: var(--orange);
       color: var(--white);
       border: none; cursor: pointer;
-      padding: .85rem 2.2rem;
+      padding: .9rem 2.4rem;
       text-decoration: none;
       display: inline-block;
-      transition: background .2s, transform .15s;
+      transition: background .25s ease, transform .2s ease, box-shadow .25s ease;
     }
-    .btn-primary:hover { background: var(--orange-lt); transform: translateY(-2px); }
+    .btn-primary:hover {
+      background: var(--orange-lt);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(232,98,26,.28);
+    }
 
     .btn-ghost {
       font-family: 'Barlow Condensed', sans-serif;
       font-weight: 700;
-      font-size: 1.05rem;
-      letter-spacing: .1em;
+      font-size: 1rem;
+      letter-spacing: .12em;
       text-transform: uppercase;
       background: transparent;
       color: var(--white);
-      border: 2px solid rgba(255,255,255,.4);
+      border: 1.5px solid rgba(255,255,255,.35);
       cursor: pointer;
-      padding: .85rem 2.2rem;
+      padding: .9rem 2.4rem;
       text-decoration: none;
       display: inline-block;
-      transition: border-color .2s, color .2s, transform .15s;
+      transition: border-color .25s ease, color .25s ease, transform .2s ease;
     }
     .btn-ghost:hover { border-color: var(--white); transform: translateY(-2px); }
 
     .hero-scroll-hint {
-      position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+      position: absolute; bottom: 2.5rem; left: 50%;
       display: flex; flex-direction: column; align-items: center; gap: .5rem;
-      opacity: .5;
-      animation: bounce 2s 1.5s infinite;
+      animation: scrollDrift 2.4s 1.8s ease-in-out infinite;
     }
     .hero-scroll-hint span {
       font-family: 'Barlow Condensed', sans-serif;
@@ -220,12 +234,13 @@
     }
     .section-title {
       font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 800;
-      font-size: clamp(2.2rem, 5vw, 3.5rem);
-      line-height: 1;
+      font-weight: 900;
+      font-size: clamp(2.4rem, 5vw, 3.6rem);
+      line-height: 1.0;
       text-transform: uppercase;
       color: var(--charcoal);
       margin-bottom: 1.5rem;
+      letter-spacing: -.01em;
     }
     .section-title.light { color: var(--white); }
     .section-intro {
@@ -271,9 +286,11 @@
     }
     .stat-box {
       background: var(--cream);
-      padding: 1.5rem;
+      padding: 1.5rem 1.75rem;
       border-left: 3px solid var(--orange);
+      transition: transform .25s cubic-bezier(0.16, 1, 0.3, 1);
     }
+    .stat-box:hover { transform: translateX(4px); }
     .stat-num {
       font-family: 'Barlow Condensed', sans-serif;
       font-weight: 900;
@@ -307,18 +324,13 @@
       position: relative;
       overflow: hidden;
       cursor: default;
-      transition: background .3s;
+      transition: background .3s ease;
+      border-left: 3px solid transparent;
     }
-    .service-card::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0;
-      width: 0; height: 3px;
-      background: var(--orange);
-      transition: width .35s ease;
+    .service-card:hover {
+      background: var(--warm-grey);
+      border-left-color: var(--orange);
     }
-    .service-card:hover { background: var(--warm-grey); }
-    .service-card:hover::after { width: 100%; }
     .service-icon {
       font-size: 2.4rem;
       margin-bottom: 1.2rem;
@@ -358,22 +370,30 @@
     .gallery-item img {
       width: 100%; height: 100%;
       object-fit: cover;
-      transition: transform .5s ease;
+      transition: transform .6s cubic-bezier(0.16, 1, 0.3, 1);
       display: block;
     }
-    .gallery-item:hover img { transform: scale(1.06); }
+    .gallery-item:hover img { transform: scale(1.05); }
     .gallery-overlay {
       position: absolute; inset: 0;
-      background: rgba(232,98,26,.0);
+      background: rgba(17,17,16,0);
       display: flex; align-items: center; justify-content: center;
       opacity: 0;
-      transition: opacity .3s, background .3s;
+      transition: opacity .3s ease, background .3s ease;
     }
     .gallery-item:hover .gallery-overlay {
       opacity: 1;
-      background: rgba(232,98,26,.35);
+      background: rgba(17,17,16,.45);
     }
-    .gallery-overlay span { font-size: 2rem; }
+    .gallery-overlay::after {
+      content: '+';
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 300;
+      font-size: 2.5rem;
+      color: var(--white);
+      line-height: 1;
+    }
+    .gallery-overlay span { display: none; }
 
     .gallery-note {
       font-size: .85rem;
@@ -410,8 +430,9 @@
       border-top: 3px solid var(--orange);
       position: relative;
       opacity: 0;
-      transform: translateY(24px);
-      transition: opacity .6s, transform .6s;
+      transform: translateY(20px);
+      transition: opacity .7s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform .7s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .testimonial-card.visible { opacity: 1; transform: none; }
     .testimonial-stars {
@@ -529,7 +550,7 @@
     button[type="submit"] {
       font-family: 'Barlow Condensed', sans-serif;
       font-weight: 700;
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       letter-spacing: .12em;
       text-transform: uppercase;
       background: var(--orange);
@@ -539,9 +560,13 @@
       cursor: pointer;
       width: 100%;
       margin-top: .5rem;
-      transition: background .2s, transform .15s;
+      transition: background .25s ease, transform .2s ease, box-shadow .25s ease;
     }
-    button[type="submit"]:hover { background: var(--orange-lt); transform: translateY(-2px); }
+    button[type="submit"]:hover {
+      background: var(--orange-lt);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(232,98,26,.25);
+    }
 
     /* ── FOOTER ── */
     footer {
@@ -555,13 +580,17 @@
       margin-bottom: 2rem;
     }
     .footer-logo {
-      display: block;
-      line-height: 0;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 1.6rem;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      color: var(--white);
+      line-height: 1;
     }
-    .footer-logo svg {
-      height: 72px;
-      width: 72px;
-      border-radius: 6px;
+    .footer-logo em {
+      font-style: normal;
+      color: var(--orange);
     }
     .footer-tagline { font-size: .85rem; color: var(--stone); margin-top: .2rem; }
 
@@ -599,18 +628,19 @@
 
     /* ── ANIMATIONS ── */
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(28px); }
+      from { opacity: 0; transform: translateY(16px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-    @keyframes bounce {
-      0%, 100% { transform: translateX(-50%) translateY(0); }
-      50%       { transform: translateX(-50%) translateY(8px); }
+    @keyframes scrollDrift {
+      0%, 100% { transform: translateX(-50%) translateY(0); opacity: .4; }
+      55%       { transform: translateX(-50%) translateY(7px); opacity: .7; }
     }
 
     .reveal {
       opacity: 0;
-      transform: translateY(32px);
-      transition: opacity .7s ease, transform .7s ease;
+      transform: translateY(22px);
+      transition: opacity .7s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform .7s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .reveal.visible {
       opacity: 1;
@@ -649,34 +679,9 @@
 </head>
 <body>
 
-  <!-- ── LOGO SYMBOL (reused throughout page) ── -->
-  <svg style="display:none" aria-hidden="true">
-    <symbol id="pb-logo" viewBox="0 0 500 500">
-      <rect width="500" height="500" fill="#000000"/>
-      <!-- Large P -->
-      <text x="68" y="348"
-        font-family="'Barlow Condensed','Arial Narrow',Arial,sans-serif"
-        font-weight="900" font-size="238" fill="#ffffff">P</text>
-      <!-- Large B -->
-      <text x="244" y="338"
-        font-family="'Barlow Condensed','Arial Narrow',Arial,sans-serif"
-        font-weight="900" font-size="212" fill="#ffffff">B</text>
-      <!-- PALLY label -->
-      <text x="262" y="174"
-        font-family="'Barlow Condensed','Arial Narrow',Arial,sans-serif"
-        font-weight="700" font-size="48" letter-spacing="9" fill="#ffffff">PALLY</text>
-      <!-- BUILDS label -->
-      <text x="262" y="368"
-        font-family="'Barlow Condensed','Arial Narrow',Arial,sans-serif"
-        font-weight="700" font-size="48" letter-spacing="3" fill="#ffffff">BUILDS</text>
-    </symbol>
-  </svg>
-
   <!-- ── NAV ── -->
   <nav id="navbar">
-    <a href="#hero" class="nav-logo" aria-label="Pally Builds — Home">
-      <svg aria-hidden="true"><use href="#pb-logo"></use></svg>
-    </a>
+    <a href="#hero" class="nav-logo">Pally <em>Builds</em></a>
     <ul class="nav-links" id="navLinks">
       <li><a href="#about">About</a></li>
       <li><a href="#services">Services</a></li>
@@ -693,9 +698,7 @@
   <!-- ── HERO ── -->
   <section id="hero">
     <p class="hero-eyebrow">Masterton · Wairarapa · New Zealand</p>
-    <div class="hero-logo-wrap">
-      <svg role="img" aria-label="Pally Builds"><use href="#pb-logo"></use></svg>
-    </div>
+    <h1 class="hero-title">Pally<em>Builds</em></h1>
     <p class="hero-tagline">Quality Builds in the Heart of the Wairarapa — built right, built to last.</p>
     <div class="hero-actions">
       <a href="#contact" class="btn-primary">Get a Free Quote</a>
@@ -955,9 +958,7 @@
   <footer>
     <div class="footer-inner">
       <div>
-        <div class="footer-logo">
-          <svg role="img" aria-label="Pally Builds"><use href="#pb-logo"></use></svg>
-        </div>
+        <div class="footer-logo">Pally <em>Builds</em></div>
         <div class="footer-tagline">Quality Builds in the Heart of the Wairarapa</div>
       </div>
       <ul class="footer-links">
