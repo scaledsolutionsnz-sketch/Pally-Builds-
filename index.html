@@ -1,1 +1,1047 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pally Builds — Quality Builds in the Heart of the Wairarapa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Lora:ital,wght@0,400;0,600;1,400&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    :root {
+      --black:    #111110;
+      --charcoal: #1e1e1c;
+      --warm-grey:#2e2d2a;
+      --mid-grey: #5a574f;
+      --stone:    #9a9589;
+      --sand:     #d4cec4;
+      --cream:    #f5f2ec;
+      --white:    #fefefe;
+      --orange:   #e8621a;
+      --orange-dk:#c4511300;
+      --orange-lt:#f08040;
+    }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: 'Barlow', sans-serif;
+      background: var(--cream);
+      color: var(--charcoal);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(17,17,16,0.96);
+      backdrop-filter: blur(8px);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2.5rem;
+      height: 64px;
+      border-bottom: 2px solid var(--orange);
+      transition: box-shadow .3s;
+    }
+    nav.scrolled { box-shadow: 0 4px 24px rgba(0,0,0,.4); }
+
+    .nav-logo {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 1.6rem;
+      color: var(--white);
+      letter-spacing: .04em;
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--orange); }
+
+    .nav-links {
+      display: flex; gap: 2rem; list-style: none;
+    }
+    .nav-links a {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--sand);
+      text-decoration: none;
+      transition: color .2s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; left: 0; bottom: -4px;
+      width: 0; height: 2px;
+      background: var(--orange);
+      transition: width .25s ease;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-cta {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: .95rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      background: var(--orange);
+      color: var(--white);
+      border: none;
+      padding: .55rem 1.4rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background .2s, transform .15s;
+    }
+    .nav-cta:hover { background: var(--orange-lt); transform: translateY(-1px); }
+
+    /* Hamburger */
+    .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+    .hamburger span { display: block; width: 26px; height: 2px; background: var(--white); transition: transform .3s, opacity .3s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      background:
+        linear-gradient(to bottom, rgba(17,17,16,.72) 0%, rgba(17,17,16,.55) 60%, rgba(17,17,16,.8) 100%),
+        url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1600&q=80') center/cover no-repeat;
+      display: flex; flex-direction: column; align-items: flex-start; justify-content: center;
+      padding: 120px 2.5rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    #hero::before {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0;
+      width: 6px;
+      background: var(--orange);
+    }
+    .hero-eyebrow {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 1rem;
+      opacity: 0;
+      animation: fadeUp .7s .2s forwards;
+    }
+    .hero-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: clamp(3.5rem, 9vw, 7.5rem);
+      line-height: .92;
+      color: var(--white);
+      text-transform: uppercase;
+      max-width: 800px;
+      opacity: 0;
+      animation: fadeUp .7s .4s forwards;
+    }
+    .hero-title em {
+      font-style: normal;
+      color: var(--orange);
+    }
+    .hero-tagline {
+      font-family: 'Lora', serif;
+      font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+      color: var(--sand);
+      margin-top: 1.5rem;
+      max-width: 520px;
+      line-height: 1.5;
+      opacity: 0;
+      animation: fadeUp .7s .6s forwards;
+    }
+    .hero-actions {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+      margin-top: 2.5rem;
+      opacity: 0;
+      animation: fadeUp .7s .8s forwards;
+    }
+    .btn-primary {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      background: var(--orange);
+      color: var(--white);
+      border: none; cursor: pointer;
+      padding: .85rem 2.2rem;
+      text-decoration: none;
+      display: inline-block;
+      transition: background .2s, transform .15s;
+    }
+    .btn-primary:hover { background: var(--orange-lt); transform: translateY(-2px); }
+
+    .btn-ghost {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      background: transparent;
+      color: var(--white);
+      border: 2px solid rgba(255,255,255,.4);
+      cursor: pointer;
+      padding: .85rem 2.2rem;
+      text-decoration: none;
+      display: inline-block;
+      transition: border-color .2s, color .2s, transform .15s;
+    }
+    .btn-ghost:hover { border-color: var(--white); transform: translateY(-2px); }
+
+    .hero-scroll-hint {
+      position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: .5rem;
+      opacity: .5;
+      animation: bounce 2s 1.5s infinite;
+    }
+    .hero-scroll-hint span {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: .8rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--sand);
+    }
+    .scroll-arrow { width: 24px; height: 24px; border-right: 2px solid var(--sand); border-bottom: 2px solid var(--sand); transform: rotate(45deg); }
+
+    /* ── SECTION SHARED ── */
+    section { padding: 100px 2.5rem; }
+    .section-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: .85rem;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: .75rem;
+    }
+    .section-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      line-height: 1;
+      text-transform: uppercase;
+      color: var(--charcoal);
+      margin-bottom: 1.5rem;
+    }
+    .section-title.light { color: var(--white); }
+    .section-intro {
+      font-family: 'Barlow', sans-serif;
+      font-weight: 300;
+      font-size: 1.1rem;
+      line-height: 1.75;
+      color: var(--mid-grey);
+      max-width: 620px;
+    }
+    .section-intro.light { color: var(--sand); }
+
+    /* ── ABOUT ── */
+    #about {
+      background: var(--white);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .about-img-wrap {
+      position: relative;
+    }
+    .about-img-wrap img {
+      width: 100%;
+      height: 520px;
+      object-fit: cover;
+      display: block;
+    }
+    .about-img-wrap::before {
+      content: '';
+      position: absolute;
+      top: -16px; left: -16px;
+      right: 16px; bottom: 16px;
+      border: 3px solid var(--orange);
+      z-index: 0;
+    }
+    .about-img-wrap img { position: relative; z-index: 1; }
+
+    .about-stats {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+    .stat-box {
+      background: var(--cream);
+      padding: 1.5rem;
+      border-left: 3px solid var(--orange);
+    }
+    .stat-num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 2.8rem;
+      color: var(--orange);
+      line-height: 1;
+    }
+    .stat-label {
+      font-family: 'Barlow', sans-serif;
+      font-size: .9rem;
+      color: var(--mid-grey);
+      margin-top: .3rem;
+    }
+
+    /* ── SERVICES ── */
+    #services {
+      background: var(--charcoal);
+      padding-top: 100px; padding-bottom: 100px;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5px;
+      margin-top: 4rem;
+      background: var(--mid-grey);
+      border: 1.5px solid var(--mid-grey);
+    }
+    .service-card {
+      background: var(--charcoal);
+      padding: 2.5rem 2rem;
+      position: relative;
+      overflow: hidden;
+      cursor: default;
+      transition: background .3s;
+    }
+    .service-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 3px;
+      background: var(--orange);
+      transition: width .35s ease;
+    }
+    .service-card:hover { background: var(--warm-grey); }
+    .service-card:hover::after { width: 100%; }
+    .service-icon {
+      font-size: 2.4rem;
+      margin-bottom: 1.2rem;
+      display: block;
+    }
+    .service-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: 1.5rem;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: .75rem;
+      letter-spacing: .03em;
+    }
+    .service-desc {
+      font-size: .95rem;
+      color: var(--stone);
+      line-height: 1.65;
+    }
+
+    /* ── GALLERY ── */
+    #gallery {
+      background: var(--cream);
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 3rem;
+    }
+    .gallery-item {
+      aspect-ratio: 1;
+      overflow: hidden;
+      position: relative;
+      background: var(--sand);
+    }
+    .gallery-item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform .5s ease;
+      display: block;
+    }
+    .gallery-item:hover img { transform: scale(1.06); }
+    .gallery-overlay {
+      position: absolute; inset: 0;
+      background: rgba(232,98,26,.0);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0;
+      transition: opacity .3s, background .3s;
+    }
+    .gallery-item:hover .gallery-overlay {
+      opacity: 1;
+      background: rgba(232,98,26,.35);
+    }
+    .gallery-overlay span { font-size: 2rem; }
+
+    .gallery-note {
+      font-size: .85rem;
+      color: var(--stone);
+      margin-top: 1.5rem;
+      font-style: italic;
+    }
+
+    /* ── TESTIMONIALS ── */
+    #testimonials {
+      background: var(--black);
+      position: relative;
+      overflow: hidden;
+    }
+    #testimonials::before {
+      content: '"';
+      position: absolute;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 40rem;
+      line-height: 1;
+      color: rgba(255,255,255,.02);
+      top: -8rem; left: -2rem;
+      pointer-events: none;
+    }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 4rem;
+    }
+    .testimonial-card {
+      background: var(--charcoal);
+      padding: 2.5rem;
+      border-top: 3px solid var(--orange);
+      position: relative;
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .6s, transform .6s;
+    }
+    .testimonial-card.visible { opacity: 1; transform: none; }
+    .testimonial-stars {
+      color: var(--orange);
+      font-size: 1.1rem;
+      letter-spacing: .1em;
+      margin-bottom: 1.2rem;
+    }
+    .testimonial-quote {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--sand);
+      margin-bottom: 1.8rem;
+    }
+    .testimonial-author {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+    .testimonial-location {
+      font-size: .85rem;
+      color: var(--stone);
+      margin-top: .2rem;
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: var(--white);
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    .contact-info { padding-top: .5rem; }
+    .contact-item {
+      display: flex; align-items: flex-start; gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .contact-icon {
+      width: 44px; height: 44px;
+      background: var(--orange);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .contact-item-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--charcoal);
+    }
+    .contact-item-value {
+      font-size: .95rem;
+      color: var(--mid-grey);
+      margin-top: .2rem;
+      line-height: 1.5;
+    }
+
+    /* Form */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .form-full { grid-column: 1 / -1; }
+
+    label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: .85rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--charcoal);
+      display: block;
+      margin-bottom: .4rem;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    select,
+    textarea {
+      width: 100%;
+      padding: .85rem 1rem;
+      border: 1.5px solid var(--sand);
+      background: var(--cream);
+      color: var(--charcoal);
+      font-family: 'Barlow', sans-serif;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color .2s;
+      appearance: none;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--orange);
+    }
+    select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23e8621a' stroke-width='2' fill='none'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      padding-right: 2.5rem;
+    }
+    textarea { min-height: 140px; resize: vertical; }
+
+    .form-field { display: flex; flex-direction: column; }
+
+    .g-recaptcha { margin: .5rem 0; }
+
+    button[type="submit"] {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      background: var(--orange);
+      color: var(--white);
+      border: none;
+      padding: 1rem 2.5rem;
+      cursor: pointer;
+      width: 100%;
+      margin-top: .5rem;
+      transition: background .2s, transform .15s;
+    }
+    button[type="submit"]:hover { background: var(--orange-lt); transform: translateY(-2px); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--black);
+      padding: 3rem 2.5rem 2rem;
+      border-top: 3px solid var(--orange);
+    }
+    .footer-inner {
+      display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+    .footer-logo {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 1.8rem;
+      color: var(--white);
+      letter-spacing: .05em;
+    }
+    .footer-logo span { color: var(--orange); }
+    .footer-tagline { font-size: .85rem; color: var(--stone); margin-top: .2rem; }
+
+    .footer-links {
+      list-style: none;
+      display: flex; gap: 2rem; flex-wrap: wrap;
+    }
+    .footer-links a {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: .9rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--stone);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .footer-links a:hover { color: var(--orange); }
+
+    .footer-legal {
+      border-top: 1px solid var(--warm-grey);
+      padding-top: 1.5rem;
+      display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem;
+      align-items: center;
+    }
+    .footer-legal p { font-size: .8rem; color: var(--mid-grey); }
+    .footer-legal ul { list-style: none; display: flex; gap: 1.5rem; }
+    .footer-legal ul a {
+      font-size: .8rem;
+      color: var(--mid-grey);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .footer-legal ul a:hover { color: var(--orange); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(8px); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      #about, #contact { grid-template-columns: 1fr; gap: 3rem; }
+      .about-img-wrap { max-height: 340px; overflow: hidden; }
+      .about-img-wrap img { height: 340px; }
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 0 1.5rem; }
+      .nav-links { display: none; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: var(--black); padding: 1.5rem 2rem; gap: 1.5rem; border-top: 2px solid var(--orange); }
+      .nav-links.open { display: flex; }
+      .nav-cta { display: none; }
+      .hamburger { display: flex; }
+
+      section { padding: 70px 1.5rem; }
+      #hero { padding: 100px 1.5rem 3rem; }
+
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .form-grid { grid-template-columns: 1fr; }
+
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+      .footer-legal { flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (max-width: 480px) {
+      .gallery-grid { grid-template-columns: 1fr; }
+      .about-stats { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAV ── -->
+  <nav id="navbar">
+    <a href="#hero" class="nav-logo">Pally<span>Builds</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#testimonials">Testimonials</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">Get a Quote</a>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <section id="hero">
+    <p class="hero-eyebrow">Masterton · Wairarapa · New Zealand</p>
+    <h1 class="hero-title">Pally<br><em>Builds</em></h1>
+    <p class="hero-tagline">Quality Builds in the Heart of the Wairarapa — built right, built to last.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Get a Free Quote</a>
+      <a href="#services" class="btn-ghost">Our Services</a>
+    </div>
+    <div class="hero-scroll-hint">
+      <div class="scroll-arrow"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- ── ABOUT ── -->
+  <section id="about">
+    <div class="about-img-wrap reveal">
+      <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800&q=80" alt="Builder on site" loading="lazy" />
+    </div>
+    <div class="reveal" style="transition-delay:.15s">
+      <p class="section-label">Who We Are</p>
+      <h2 class="section-title">Local Builders,<br>Wairarapa Proud</h2>
+      <p class="section-intro">
+        Pally Builds is a Masterton-based building and construction company with deep roots in the Wairarapa region. We're a tight-knit team of qualified tradespeople who take pride in every project we touch — from the first nail to the final coat of paint.
+      </p>
+      <p class="section-intro" style="margin-top:1rem;">
+        We believe in straightforward communication, honest quotes, and workmanship that stands the test of time. Whether you're building your first home or upgrading a commercial space, we treat every job like it's our own.
+      </p>
+      <div class="about-stats">
+        <div class="stat-box">
+          <div class="stat-num">15+</div>
+          <div class="stat-label">Years in the Wairarapa</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">200+</div>
+          <div class="stat-label">Projects Completed</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">100%</div>
+          <div class="stat-label">Licensed &amp; Insured</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">5★</div>
+          <div class="stat-label">Client Satisfaction</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SERVICES ── -->
+  <section id="services">
+    <div class="reveal">
+      <p class="section-label">What We Do</p>
+      <h2 class="section-title light">Our Services</h2>
+      <p class="section-intro light">From new builds to light commercial fit-outs, we handle it all with care and expertise.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <span class="service-icon">🏠</span>
+        <div class="service-name">New Builds</div>
+        <p class="service-desc">We manage your new home build from foundation to fit-out. Transparent process, quality materials, and no surprises.</p>
+      </div>
+      <div class="service-card reveal" style="transition-delay:.1s">
+        <span class="service-icon">🔨</span>
+        <div class="service-name">Renovations</div>
+        <p class="service-desc">Bringing your existing home back to life. Kitchen, bathroom, extensions — we handle the hard part so you don't have to.</p>
+      </div>
+      <div class="service-card reveal" style="transition-delay:.2s">
+        <span class="service-icon">🪵</span>
+        <div class="service-name">Decks &amp; Outdoor Structures</div>
+        <p class="service-desc">From hardwood decks to pergolas and fencing, we build outdoor spaces you'll actually use.</p>
+      </div>
+      <div class="service-card reveal" style="transition-delay:.3s">
+        <span class="service-icon">🏢</span>
+        <div class="service-name">Light Commercial</div>
+        <p class="service-desc">Fit-outs, office builds, retail renovations, and more. We understand commercial timelines and deliver on them.</p>
+      </div>
+      <div class="service-card reveal" style="transition-delay:.4s">
+        <span class="service-icon">📋</span>
+        <div class="service-name">Project Management</div>
+        <p class="service-desc">Need someone to coordinate the whole job? We manage subcontractors, councils, and timelines on your behalf.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── GALLERY ── -->
+  <section id="gallery">
+    <div class="reveal">
+      <p class="section-label">Recent Work</p>
+      <h2 class="section-title">Gallery</h2>
+      <p class="section-intro">A look at some of our recent projects around the Wairarapa. Follow us on social media for more.</p>
+    </div>
+
+    <!--
+    ═══════════════════════════════════════════════════════════════
+    SOCIAL MEDIA INTEGRATION — DEVELOPER INSTRUCTIONS
+    ═══════════════════════════════════════════════════════════════
+
+    To connect Pally Builds' Instagram or Facebook feed, follow these steps:
+
+    OPTION A — INSTAGRAM BASIC DISPLAY API
+    ──────────────────────────────────────
+    1. Create a Meta Developer app at https://developers.facebook.com
+    2. Add the "Instagram Basic Display" product
+    3. Generate a long-lived access token for the business account
+    4. Replace the values below:
+         INSTAGRAM_ACCESS_TOKEN  = your long-lived token
+         INSTAGRAM_USER_ID       = your Instagram user ID (numeric)
+    5. The fetch URL will be:
+         https://graph.instagram.com/me/media
+           ?fields=id,media_type,media_url,thumbnail_url,permalink
+           &limit=6
+           &access_token=INSTAGRAM_ACCESS_TOKEN
+
+    OPTION B — FACEBOOK GRAPH API (for Facebook Page images)
+    ─────────────────────────────────────────────────────────
+    1. Get a Page Access Token via Meta Business Suite
+    2. Replace:
+         FB_PAGE_ACCESS_TOKEN = your page access token
+         FB_PAGE_ID           = your Facebook Page ID (numeric)
+    3. The fetch URL will be:
+         https://graph.facebook.com/FB_PAGE_ID/photos
+           ?fields=images,link
+           &limit=6
+           &access_token=FB_PAGE_ACCESS_TOKEN
+
+    Instagram handle to target: @pallybuilds (UPDATE THIS)
+    Facebook Page: Pally Builds (UPDATE WITH EXACT PAGE NAME/ID)
+
+    Once you have the token and ID, paste them into the JS below
+    where indicated and remove the PLACEHOLDER section.
+    ═══════════════════════════════════════════════════════════════
+    -->
+
+    <div class="gallery-grid" id="galleryGrid">
+      <!-- Populated by JS below; falls back to placeholder images -->
+    </div>
+    <p class="gallery-note" id="galleryNote"></p>
+  </section>
+
+  <!-- ── TESTIMONIALS ── -->
+  <section id="testimonials">
+    <div class="reveal">
+      <p class="section-label">Happy Clients</p>
+      <h2 class="section-title light">What Wairarapa Says</h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-quote">"Pally Builds constructed our new home in Masterton and we couldn't be happier. The communication was excellent throughout, and the final result exceeded our expectations. Highly recommend to anyone in the Wairarapa looking for a trustworthy builder."</p>
+        <div class="testimonial-author">Sarah & Mike Thornton</div>
+        <div class="testimonial-location">Masterton, Wairarapa</div>
+      </div>
+      <div class="testimonial-card" style="transition-delay:.15s">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-quote">"We had our kitchen and bathroom renovated and the lads were incredibly professional. On time, tidy, and the quality of the work is outstanding. The deck they built for us is absolutely beautiful — everyone comments on it."</p>
+        <div class="testimonial-author">James Hepburn</div>
+        <div class="testimonial-location">Carterton, Wairarapa</div>
+      </div>
+      <div class="testimonial-card" style="transition-delay:.3s">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-quote">"As a small business owner in Greytown, I needed a reliable commercial fit-out done on a tight schedule. Pally Builds nailed it. They managed everything, kept us informed, and came in on budget. Will be using them again without question."</p>
+        <div class="testimonial-author">Aroha Williams</div>
+        <div class="testimonial-location">Greytown, Wairarapa</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CONTACT ── -->
+  <section id="contact">
+    <div class="contact-info reveal">
+      <p class="section-label">Get in Touch</p>
+      <h2 class="section-title">Let's Build Something</h2>
+      <p class="section-intro" style="margin-bottom:2.5rem">Ready to get your project underway? Fill in the form and we'll be in touch within one business day.</p>
+
+      <div class="contact-item">
+        <div class="contact-icon">📍</div>
+        <div>
+          <div class="contact-item-title">Location</div>
+          <div class="contact-item-value">Masterton, Wairarapa<br>New Zealand</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📞</div>
+        <div>
+          <div class="contact-item-title">Phone</div>
+          <div class="contact-item-value"><a href="tel:+64212345678" style="color:inherit;text-decoration:none">+64 21 234 5678</a></div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">✉️</div>
+        <div>
+          <div class="contact-item-title">Email</div>
+          <div class="contact-item-value"><a href="mailto:hello@pallybuilds.co.nz" style="color:inherit;text-decoration:none">hello@pallybuilds.co.nz</a></div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">🕐</div>
+        <div>
+          <div class="contact-item-title">Hours</div>
+          <div class="contact-item-value">Mon – Fri: 7:00am – 5:00pm<br>Saturday by arrangement</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal" style="transition-delay:.15s">
+      <form action="https://api.staticforms.xyz/submit" method="post">
+        <input type="hidden" name="apiKey" value="sf_768da8d33927e7f4f241d0a6" />
+        <input type="hidden" name="redirectTo" value="https://pallybuilds.co.nz/thanks.html" />
+
+        <div class="form-grid">
+          <div class="form-field">
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" name="firstName" required placeholder="John" />
+          </div>
+          <div class="form-field">
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" name="lastName" required placeholder="Smith" />
+          </div>
+          <div class="form-field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required placeholder="john@email.com" />
+          </div>
+          <div class="form-field">
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone" name="phone" placeholder="+64 21 000 0000" />
+          </div>
+          <div class="form-field form-full">
+            <label for="business">Business (if applicable)</label>
+            <input type="text" id="business" name="business" placeholder="Your business name" />
+          </div>
+          <div class="form-field form-full">
+            <label for="service">Service Required</label>
+            <select id="service" name="service" required>
+              <option value="" disabled selected>Select a service</option>
+              <option value="New Build">New Build</option>
+              <option value="Renovation">Renovation</option>
+              <option value="Deck & Outdoor Structures">Deck &amp; Outdoor Structures</option>
+              <option value="Light Commercial">Light Commercial</option>
+              <option value="Project Management">Project Management</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="form-field form-full">
+            <label for="message">Project Details</label>
+            <textarea id="message" name="message" required placeholder="Tell us about your project — location, size, timeframe, and any other details…"></textarea>
+          </div>
+          <div class="form-full">
+            <div class="g-recaptcha" data-sitekey="6LeusZksAAAAAPpL2MIplqIcYKp-NzhFv-BPG4oT"></div>
+          </div>
+          <div class="form-full">
+            <button type="submit">Send My Enquiry →</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <div class="footer-logo">Pally<span>Builds</span></div>
+        <div class="footer-tagline">Quality Builds in the Heart of the Wairarapa</div>
+      </div>
+      <ul class="footer-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#testimonials">Testimonials</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-legal">
+      <p>&copy; <span id="year"></span> Pally Builds Ltd. All rights reserved. Masterton, Wairarapa, New Zealand.</p>
+      <ul>
+        <li><a href="/terms.html">Terms &amp; Conditions</a></li>
+        <li><a href="/privacy.html">Privacy Policy</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+  <script>
+    // ── Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // ── Nav scroll shadow
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    // ── Hamburger
+    const hamburger = document.getElementById('hamburger');
+    const navLinks  = document.getElementById('navLinks');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      navLinks.classList.toggle('open');
+    });
+    navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      navLinks.classList.remove('open');
+    }));
+
+    // ── Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal, .testimonial-card');
+    const observer  = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => observer.observe(el));
+
+    // ── Gallery
+    // ════════════════════════════════════════════════════════════
+    // DEVELOPER: Paste your Instagram or Facebook credentials here
+    // ════════════════════════════════════════════════════════════
+    const INSTAGRAM_ACCESS_TOKEN = ''; // ← INSERT long-lived token here
+    const INSTAGRAM_USER_ID      = ''; // ← INSERT numeric Instagram user ID
+
+    // const FB_PAGE_ACCESS_TOKEN = ''; // ← Alternatively use Facebook Page token
+    // const FB_PAGE_ID           = ''; // ← And Page ID
+    // ════════════════════════════════════════════════════════════
+
+    const galleryGrid = document.getElementById('galleryGrid');
+    const galleryNote = document.getElementById('galleryNote');
+
+    const PLACEHOLDER_IMAGES = [
+      { src: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=600&q=80', alt: 'New home build' },
+      { src: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=600&q=80', alt: 'Construction site' },
+      { src: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80', alt: 'Deck build' },
+      { src: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&q=80', alt: 'Kitchen renovation' },
+      { src: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80', alt: 'Completed home' },
+      { src: 'https://images.unsplash.com/photo-1565538810643-b5bdb714032a?w=600&q=80', alt: 'Commercial fit-out' },
+    ];
+
+    function renderPlaceholders() {
+      PLACEHOLDER_IMAGES.forEach(img => {
+        galleryGrid.innerHTML += `
+          <div class="gallery-item">
+            <img src="${img.src}" alt="${img.alt}" loading="lazy" />
+            <div class="gallery-overlay"><span>📷</span></div>
+          </div>`;
+      });
+      galleryNote.textContent = 'Placeholder images shown — connect your Instagram or Facebook account to display real project photos.';
+    }
+
+    async function loadInstagramFeed() {
+      if (!INSTAGRAM_ACCESS_TOKEN || !INSTAGRAM_USER_ID) {
+        renderPlaceholders(); return;
+      }
+      try {
+        const url = `https://graph.instagram.com/me/media?fields=id,media_type,media_url,thumbnail_url,permalink&limit=6&access_token=${INSTAGRAM_ACCESS_TOKEN}`;
+        const res  = await fetch(url);
+        const data = await res.json();
+        if (!data.data || data.data.length === 0) throw new Error('No posts');
+        data.data.forEach(post => {
+          const imgSrc = post.media_type === 'VIDEO' ? post.thumbnail_url : post.media_url;
+          if (!imgSrc) return;
+          galleryGrid.innerHTML += `
+            <div class="gallery-item">
+              <a href="${post.permalink}" target="_blank" rel="noopener">
+                <img src="${imgSrc}" alt="Pally Builds project" loading="lazy" />
+                <div class="gallery-overlay"><span>↗</span></div>
+              </a>
+            </div>`;
+        });
+        galleryNote.textContent = 'Recent posts from @pallybuilds on Instagram.';
+      } catch (err) {
+        console.warn('Instagram feed failed, using placeholders.', err);
+        renderPlaceholders();
+      }
+    }
+
+    loadInstagramFeed();
+  </script>
+</body>
+</html>
